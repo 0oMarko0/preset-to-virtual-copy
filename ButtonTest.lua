@@ -29,37 +29,6 @@ logger:enable("logfile")
 
 -- How to rename a virtual photo ?
 
-local function dump(o)
-    if type(o) == 'table' then
-        local s = '{ '
-        for k, v in pairs(o) do
-            if type(k) ~= 'number' then k = '"' .. k .. '"' end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
-        end
-        return s .. '} '
-    else
-        return tostring(o)
-    end
-end
-
-
-
--- return a list of virtual copy
-local function creatVirtualCopy()
-
-end
-
--- Apply a preset to a virtual copy
--- rename the file when we apply the preset?
-local function applyPreset()
-
-end
-
--- get the resolution of the screen
-local function resolution()
-    local resolution = LrSystemInfo.displayInfo()
-    logger:trace(dump(resolution))
-end
 
 local function showDialogue()
     LrFunctionContext.callWithContext("showDialogue", function(context)
@@ -67,26 +36,34 @@ local function showDialogue()
 
         local props = LrBinding.makePropertyTable(context)
 
-        logger:trace("Hello")
-
-        local result = LrDialogs.presentModalDialog {
-            title = "Hello push the button",
-            contents = view:static_text {
-                title = "Apply preset"
-            },
-            windowWillClose = function()
-                logger:trace("CLOSE")
-            end,
+        props.text = {
+            test = false,
+            test2 = true
         }
 
+        props.slider = 0
 
-        if result == "ok" then
-            logger:trace("test")
-            LrTasks.startAsyncTask(function(context)
-                logger:trace("inside async")
-                LrTasks.execute("C:\\Users\\Kepler\\Documents\\lrplugins\\romulus.lrdevplugin\\virtualcopy.exe")
-            end)
-        end
+        local c = view:column {
+            bind_to_object = props,
+            spacing = view:control_spacing(),
+
+            view:static_text {
+                title = LrView.bind({
+                    bind_to_object = props.text,
+                    key = "title",
+                    transform = function(value, fromModel)
+                        logger:trace("value", value, " -- ", "fromModel", fromModel)
+                        value = "YOLO"
+                        return "yuyu"
+                    end
+                })
+            }
+        }
+
+        LrDialogs.presentModalDialog {
+            title = "Test",
+            contents = c
+        }
     end)
 end
 

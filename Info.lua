@@ -2,7 +2,7 @@ return {
     LrSdkVersion = 5.0,
     LrSdkMinimumVersion = 5.0,
     LrToolkitIdentifier = "com.romulus.sdk.comparator",
-    LrPluginName = "Comparator",
+    LrPluginName = "Presets to virtual copies",
 
     LrLibraryMenuItems = {
         {
@@ -13,6 +13,11 @@ return {
         {
             title = "Button test",
             file  = "ButtonTest.lua",
+            enabledWhen = "photosSelected"
+        },
+        {
+            title = "Create virtual copies",
+            file  = "PresetsToVirtualCopiesDialog.lua",
             enabledWhen = "photosSelected"
         }
     }
