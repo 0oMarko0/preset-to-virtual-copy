@@ -6,3 +6,6 @@ TODO:
 - support only 10 preset, more than that is useless -> overwrite in the plugin config
 - using iterator ? 
 - - enable disable log
+- caching ? LdMD5 with print table to string ? 
+- LrPref
+- modal if selected more than 10 

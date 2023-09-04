@@ -128,7 +128,6 @@ local function presetFoldersToGroupBox(view, presetFolders)
 end
 
 local function showDialog()
-    Logger.info("test", "une", "deux")
     LrFunctionContext.callWithContext("showDialog", function(context)
         local view = LrView.osFactory()
 
@@ -208,7 +207,7 @@ local function showDialog()
             contents = t
         }
 
-        if result == "oko" then
+        if result == "ok" then
             local toApply = {}
             local i = 1;
             LrTasks.startAsyncTask(function()
@@ -249,17 +248,17 @@ local function showDialog()
                 local timeout = 0
 
                 -- I think that's useless since the program bloc until the execute is done
-                while (copy ~= (i - 1)) do
-                    copy = targetPhoto:getRawMetadata("countVirtualCopies")
-                    LrTasks.sleep(1)
-                    timeout = timeout + 1
-                    Logger.info("COPY: ", copy)
-                    Logger.info("timeout: ", timeout)
-
-                    if timeout == 10 then
-                        return
-                    end
-                end
+                --while (copy ~= (i - 1)) do
+                --    copy = targetPhoto:getRawMetadata("countVirtualCopies")
+                --    LrTasks.sleep(1)
+                --    timeout = timeout + 1
+                --    Logger.info("COPY: ", copy)
+                --    Logger.info("timeout: ", timeout)
+                --
+                --    if timeout == 10 then
+                --        return
+                --    end
+                --end
 
 
                 local function keywordExist(keyword)

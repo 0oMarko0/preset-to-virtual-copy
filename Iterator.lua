@@ -1,12 +1,11 @@
-
 local Iter = {}
 
-function Iter.presets(lrDevelopPresets)
+function Iter.list(list)
     local i = 0
 
     return function()
         i = i + 1
-        return lrDevelopPresets[i]
+        return list[i], i
     end
 end
 
