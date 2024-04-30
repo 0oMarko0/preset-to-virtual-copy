@@ -1,11 +1,11 @@
-TODO:
-- add proper license -> apache 2? 
-- use https://keplerproject.github.io/luadoc/manual.html#introduction to document the project \
-- release process with github release and a page web to show off the plugin
-- use the plugin preference to set preset directory to selection
-- support only 10 preset, more than that is useless -> overwrite in the plugin config
-- using iterator ? 
-- - enable disable log
-- caching ? LdMD5 with print table to string ? 
-- LrPref
-- modal if selected more than 10 
+# Preset to virtual copy
+This Lightroom plugin create multiple virtual copy based on selected preset. It also add the preset nemae as a keywords.
+
+![demo.gif](docs%2Fdemo.gif)
+
+# How to Install
+
+
+# Limitation
+Since the Lightroom sdk does not supporte to create virtual copy, a workaroud is to use a script to simulate the shortcut to create a virtual copy. The code for the script and the executable for windows can be found here
+

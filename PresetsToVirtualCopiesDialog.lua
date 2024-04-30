@@ -1,19 +1,19 @@
-local LrFunctionContext = import "LrFunctionContext"
-local LrBinding = import "LrBinding"
-local LrDialogs = import "LrDialogs"
-local LrView = import "LrView"
-local LrLogger = import "LrLogger"
-local LrColor = import "LrColor"
-local LrTasks = import "LrTasks"
-local LrSystemInfo = import "LrSystemInfo"
-local LrFunctionContext = import "LrFunctionContext"
-local LrApplication = import "LrApplication"
-local LrView = import "LrView"
-local LrBinding = import "LrBinding"
-local LrDialogs = import "LrDialogs"
-local LrLogger = import "LrLogger"
-local LrSystemInfo = import "LrSystemInfo"
-local LrColor = import "LrColor"
+local LrFunctionContext = import("LrFunctionContext")
+local LrBinding = import("LrBinding")
+local LrDialogs = import("LrDialogs")
+local LrView = import("LrView")
+local LrLogger = import("LrLogger")
+local LrColor = import("LrColor")
+local LrTasks = import("LrTasks")
+local LrSystemInfo = import("LrSystemInfo")
+local LrFunctionContext = import("LrFunctionContext")
+local LrApplication = import("LrApplication")
+local LrView = import("LrView")
+local LrBinding = import("LrBinding")
+local LrDialogs = import("LrDialogs")
+local LrLogger = import("LrLogger")
+local LrSystemInfo = import("LrSystemInfo")
+local LrColor = import("LrColor")
 
 local Logger = require("Logger")
 local Iter = require("Iterator")
@@ -24,8 +24,8 @@ local config = {
     chunkSize = 5,
     scrolledViewHeightRatio = 0.75,
     scrolledViewWidthRatio = 0.50,
-    virtualCopyPath = "C:\\Users\\Kepler\\Documents\\lrplugins\\romulus.lrdevplugin\\virtualcopy.exe",
-    sleepBetweenCopy = 0.2
+    virtualCopyPath = "C:\\Users\\Kapitain\\Documents\\Workspace\\copy\\copy.exe",
+    sleepBetweenCopy = 0.2,
 }
 
 local function showDialog()
@@ -34,7 +34,7 @@ local function showDialog()
     Logger.debug("Configuration")
     Logger.table(config)
 
-    LrFunctionContext.callWithContext("showDialogue", function (context)
+    LrFunctionContext.callWithContext("showDialogue", function(context)
         local view = LrView.osFactory()
 
         local catalog = LrApplication.activeCatalog()
@@ -62,21 +62,26 @@ local function showDialog()
             for presetChunk in Iter.list(presetChunks) do
                 local checkbox = {}
                 for preset in Iter.list(presetChunk) do
-                    if total > config.maxPreset then return col end
+                    if total > config.maxPreset then
+                        return col
+                    end
                     total = total + 1
                     props.presets[preset:getUuid()] = {
                         name = preset:getName(),
                         uuid = preset:getUuid(),
                         setting = preset:getSetting(),
-                        isChecked = false
+                        isChecked = false,
                     }
-                    table.insert(checkbox, view:checkbox {
-                        title = preset:getName(),
-                        value = LrView.bind({
-                            bind_to_object = props.presets[preset:getUuid()],
-                            key = "isChecked"
+                    table.insert(
+                        checkbox,
+                        view:checkbox({
+                            title = preset:getName(),
+                            value = LrView.bind({
+                                bind_to_object = props.presets[preset:getUuid()],
+                                key = "isChecked",
+                            }),
                         })
-                    })
+                    )
                 end
 
                 table.insert(col, view:column(checkbox))
@@ -84,19 +89,20 @@ local function showDialog()
             return col
         end
 
-
         local function groupBoxFromPresetFolders(presetFolders)
             local groupBox = {}
             for presetFolder in Iter.list(presetFolders) do
-                table.insert(groupBox, view:group_box {
-                    title = presetFolder:getName(),
-                    show_title = true,
-                    view:row(checkboxFromPresets(presetFolder:getDevelopPresets()))
-                })
+                table.insert(
+                    groupBox,
+                    view:group_box({
+                        title = presetFolder:getName(),
+                        show_title = true,
+                        view:row(checkboxFromPresets(presetFolder:getDevelopPresets())),
+                    })
+                )
             end
             return groupBox
         end
-
 
         local svHeight = displayInfo["height"] * config.scrolledViewHeightRatio
         local svWidth = displayInfo["width"] * config.scrolledViewWidthRatio
@@ -104,25 +110,25 @@ local function showDialog()
         Logger.debug("scrolled_view['height']=" .. svHeight)
         Logger.debug("scrolled_view['width']=" .. svWidth)
 
-        local c = view:scrolled_view {
+        local c = view:scrolled_view({
             height = svHeight,
             width = svWidth,
             background_color = LrColor(0.95),
             horizontal_scroller = false,
-            view:column(groupBoxFromPresetFolders(presetFolders))
-        }
+            view:column(groupBoxFromPresetFolders(presetFolders)),
+        })
 
-        local result = LrDialogs.presentModalDialog {
+        local result = LrDialogs.presentModalDialog({
             title = "Preset to virtual copies",
-            contents = c
-        }
+            contents = c,
+        })
 
         if result == "ok" then
             --If cache result
-            Utils.saveTable(props.presets, "C:\\Users\\Kepler\\Documents\\lrplugins\\romulus.lrdevplugin\\cache.json")
+            -- Utils.saveTable(props.presets, "C:\\Users\\Kepler\\Documents\\lrplugins\\romulus.lrdevplugin\\cache.json")
 
             local toApply = {}
-            local i = 1;
+            local i = 1
             LrTasks.startAsyncTask(function()
                 Logger.info("START-")
                 for _, preset in pairs(props.presets) do
@@ -150,7 +156,7 @@ local function showDialog()
 
                 local virtualCopies = targetPhoto:getRawMetadata("virtualCopies")
                 local countVirtualCopies = targetPhoto:getRawMetadata("countVirtualCopies")
-                Logger.info("Number of virtual copies created: "..countVirtualCopies)
+                Logger.info("Number of virtual copies created: " .. countVirtualCopies)
 
                 catalog:withWriteAccessDo("setKeywordsToPhoto", function(_)
                     for j = 1, countVirtualCopies do

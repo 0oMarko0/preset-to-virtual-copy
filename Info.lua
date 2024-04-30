@@ -6,19 +6,9 @@ return {
 
     LrLibraryMenuItems = {
         {
-            title = "Compare photo with presets",
-            file = "PresetComparator.lua",
+            title = "Create virtual copies",
+            file = "PresetsToVirtualCopiesDialog.lua",
             enabledWhen = "photosSelected",
         },
-        {
-            title = "Button test",
-            file  = "ButtonTest.lua",
-            enabledWhen = "photosSelected"
-        },
-        {
-            title = "Create virtual copies",
-            file  = "PresetsToVirtualCopiesDialog.lua",
-            enabledWhen = "photosSelected"
-        }
-    }
+    },
 }

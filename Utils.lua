@@ -1,5 +1,5 @@
-local LrSystemInfo = import "LrSystemInfo"
-local LrFileUtils = import "LrFileUtils"
+local LrSystemInfo = import("LrSystemInfo")
+local LrFileUtils = import("LrFileUtils")
 
 local Json = require("Json")
 local Logger = require("Logger")
@@ -46,7 +46,7 @@ function Utils.loadTable(filename)
     if file then
         -- read all contents of file into a string
         local contents = file:read("*a")
-        myTable = Json.decode(contents);
+        myTable = Json.decode(contents)
         io.close(file)
         return myTable
     end

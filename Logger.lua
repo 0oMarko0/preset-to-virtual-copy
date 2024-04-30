@@ -1,9 +1,9 @@
 -- taken form https://github.com/musselwhizzle/Focus-Points/blob/master/focuspoints.lrdevplugin/Utils.lua
 -- TODO ADD license apache 2
 
-local LrLogger = import 'LrLogger'
-local LrPrefs = import "LrPrefs"
-local json = require "Json"
+local LrLogger = import("LrLogger")
+local LrPrefs = import("LrPrefs")
+local json = require("Json")
 
 --[[
 -- Logging functions. You are provided 5 levels of logging. Wisely choose the level of the message you want to report
@@ -20,8 +20,8 @@ local json = require "Json"
 local config = LrPrefs.prefsForPlugin(nil)
 config.loggingLevel = "DEBUG"
 
-local lrLogger = LrLogger('libraryLogger')
-lrLogger:enable( "logfile" )
+local lrLogger = LrLogger("libraryLogger")
+lrLogger:enable("logfile")
 
 local Logger = {}
 local group = ""
@@ -59,7 +59,7 @@ function Logger.table(node)
         local cur_index = 1
         for k, v in pairs(node) do
             if (cache[node] == nil) or (cur_index >= cache[node]) then
-                if (string.find(output_str, "}", output_str:len())) then
+                if string.find(output_str, "}", output_str:len()) then
                     output_str = output_str .. ",\n"
                 elseif not (string.find(output_str, "\n", output_str:len())) then
                     output_str = output_str .. "\n"
@@ -70,15 +70,15 @@ function Logger.table(node)
                 output_str = ""
 
                 local key
-                if (type(k) == "number" or type(k) == "boolean") then
+                if type(k) == "number" or type(k) == "boolean" then
                     key = "[" .. tostring(k) .. "]"
                 else
                     key = "['" .. tostring(k) .. "']"
                 end
 
-                if (type(v) == "number" or type(v) == "boolean") then
+                if type(v) == "number" or type(v) == "boolean" then
                     output_str = output_str .. tab(depth) .. key .. " = " .. tostring(v)
-                elseif (type(v) == "table") then
+                elseif type(v) == "table" then
                     output_str = output_str .. tab(depth) .. key .. " = {\n"
                     table.insert(stack, node)
                     table.insert(stack, v)
@@ -88,14 +88,14 @@ function Logger.table(node)
                     output_str = output_str .. tab(depth) .. key .. " = '" .. tostring(v) .. "'"
                 end
 
-                if (cur_index == size) then
+                if cur_index == size then
                     output_str = output_str .. "\n" .. tab(depth - 1) .. "}"
                 else
                     output_str = output_str .. ","
                 end
             else
                 -- close the table
-                if (cur_index == size) then
+                if cur_index == size then
                     output_str = output_str .. "\n" .. tab(depth - 1) .. "}"
                 end
             end
@@ -103,7 +103,7 @@ function Logger.table(node)
             cur_index = cur_index + 1
         end
 
-        if (#stack > 0) then
+        if #stack > 0 then
             node = stack[#stack]
             stack[#stack] = nil
             depth = cache[node] == nil and depth + 1 or depth - 1
@@ -143,7 +143,7 @@ function log(level, _group, ...)
         ERROR = 1,
         WARN = 2,
         INFO = 3,
-        DEBUG = 4
+        DEBUG = 4,
     }
 
     if config.loggingLevel == nil or levels[config.loggingLevel] == nil then
