@@ -1,11 +1,11 @@
 # Preset to virtual copy
-This Lightroom plugin create multiple virtual copy based on selected preset. It also add the preset nemae as a keywords.
+This Lightroom plugin enhances your editing workflow by automatically creating multiple virtual copies of an image based on a selected preset. Additionally, it adds the preset name as a keyword, streamlining your metadata management.
 
 ![demo.gif](docs%2Fdemo.gif)
 
 # How to Install
+1. Download the plugin from the repository.
+2. Follow the installation instructions for Lightroom plugins, typically by dragging the plugin file into Lightroom's plugin manager.
 
-
-# Limitation
-Since the Lightroom sdk does not supporte to create virtual copy, a workaroud is to use a script to simulate the shortcut to create a virtual copy. The code for the script and the executable for windows can be found here
-
+# Limitations
+Due to limitations in the Lightroom SDK, the plugin can't create virtual copies directly. Instead, it uses a script to simulate the shortcut for creating virtual copies. The code for this script, along with an executable for Windows, can be found in the repository.
