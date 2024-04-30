@@ -1,5 +1,19 @@
--- taken form https://github.com/musselwhizzle/Focus-Points/blob/master/focuspoints.lrdevplugin/Utils.lua
--- TODO ADD license apache 2
+-- https://github.com/musselwhizzle/Focus-Points/blob/master/focuspoints.lrdevplugin/Utils.lua
+--[[
+  Copyright 2016 Whizzbang Inc
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--]]
 
 local LrLogger = import("LrLogger")
 local LrPrefs = import("LrPrefs")
@@ -18,7 +32,7 @@ local json = require("Json")
 --   - message - the message to be logged
 --]]
 local config = LrPrefs.prefsForPlugin(nil)
-config.loggingLevel = "DEBUG"
+config.loggingLevel = "INFO"
 
 local lrLogger = LrLogger("libraryLogger")
 lrLogger:enable("logfile")

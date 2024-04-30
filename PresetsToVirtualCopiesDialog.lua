@@ -1,19 +1,13 @@
-local LrFunctionContext = import("LrFunctionContext")
-local LrBinding = import("LrBinding")
-local LrDialogs = import("LrDialogs")
-local LrView = import("LrView")
-local LrLogger = import("LrLogger")
-local LrColor = import("LrColor")
-local LrTasks = import("LrTasks")
-local LrSystemInfo = import("LrSystemInfo")
-local LrFunctionContext = import("LrFunctionContext")
 local LrApplication = import("LrApplication")
-local LrView = import("LrView")
 local LrBinding = import("LrBinding")
-local LrDialogs = import("LrDialogs")
-local LrLogger = import("LrLogger")
-local LrSystemInfo = import("LrSystemInfo")
 local LrColor = import("LrColor")
+local LrDialogs = import("LrDialogs")
+local LrFunctionContext = import("LrFunctionContext")
+local LrLogger = import("LrLogger")
+local LrPathUtils = import("LrPathUtils")
+local LrSystemInfo = import("LrSystemInfo")
+local LrTasks = import("LrTasks")
+local LrView = import("LrView")
 
 local Logger = require("Logger")
 local Iter = require("Iterator")
@@ -24,7 +18,7 @@ local config = {
     chunkSize = 5,
     scrolledViewHeightRatio = 0.75,
     scrolledViewWidthRatio = 0.50,
-    virtualCopyPath = "C:\\Users\\Kapitain\\Documents\\Workspace\\copy\\copy.exe",
+    virtualCopyPath = LrPathUtils.child(_PLUGIN.path, "copy.exe"),
     sleepBetweenCopy = 0.2,
 }
 
@@ -124,9 +118,6 @@ local function showDialog()
         })
 
         if result == "ok" then
-            --If cache result
-            -- Utils.saveTable(props.presets, "C:\\Users\\Kepler\\Documents\\lrplugins\\romulus.lrdevplugin\\cache.json")
-
             local toApply = {}
             local i = 1
             LrTasks.startAsyncTask(function()
